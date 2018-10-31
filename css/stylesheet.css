@@ -1,4 +1,4 @@
-/*
+﻿/*
 * Theme Name: Obscue Freshdesk Theme 
 * Author: Helpdesk theme 
 * Website: http://helpdesktheme.com/ 
@@ -160,7 +160,7 @@ a[href*="/login"] {
 
 @media (max-width: 720px) {
     .page-tabs .nav-link a {
-        color: #333;
+        /* color: #333; */
     }
 }
 
