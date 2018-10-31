@@ -1,0 +1,80 @@
+<section class="home-category-blocks padding">
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-12 col-xs-12 col-md-12">
+          <ul class="category-list navigator text-center" id="with-id">
+            {% for category in portal.solution_categories %}
+            {% if category.folders_count > 0 %}
+            <li id="{{category.id}}">
+            <a href="{{category.url}}">
+              <span class="category-icon"></span>
+              <h3>{{category.name | h }}</h3><br>
+              <p class="info-text">{{ category.description | h}}</p>
+              </a>
+            </li>
+            {% endif %}
+    {% endfor %}
+          </ul>
+        
+        </div>
+     </div>
+  </div>
+</section>
+
+
+
+  
+<div class="container"> 
+  <div class="row">
+    <div class="col-sm-6 col-xs-12 col-md-6">
+        <div class="quick-articles">
+        <section class="articles promoted_blocks">
+                        <h3 class="promoted_title">Recent articles</h3>
+          <ul class="article-list promoted-articles">
+  {% for article in portal.recent_articles limit:5 %}
+            <li class="promoted-articles-item">      
+            <a class="ol" href="{{article.url}}">{{article.title | h }}</a>
+                {% if article.body_plain != blank %}  
+                {% endif %}
+          </li>
+            {% endfor %}
+            </ul>
+</section>
+      </div>
+  
+      </div>
+  
+  
+ <!--<section class="submit-request-section community-image text-center">
+   <div class="container">
+     <a href="/support/discussions" class="btn btn-lg">Community</a>
+     <a href="/support/tickets/new" class="submit-a-request btn btn-lg">Submit a request</a>
+   </div>
+</section> -->
+  
+  
+
+ <div class="col-sm-6 col-xs-12 col-md-6">
+ {% if portal.recent_popular_topics.size > 0 %}
+    <div class="recent-activity">
+      <h2 class="recent-activity-header" style="padding-top:17px;padding-bottom:14px;margin-left:20px;">Popular posts</h2>
+      <ul class="recent-activity-list">
+      {% for topic in portal.recent_popular_topics %}
+        <li class="recent-activity-item">
+          
+          <a href="{{topic.url}}" class="recent-activity-item-parent">{{ topic.user | profile_image }} {{topic.title | h}}</a>
+         <!-- <div class="t-inf">{{ topic | topic_info }}</div>-->
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  </div>
+</div>
+
+  
+  
+  
+
+        
+        
