@@ -1,48 +1,59 @@
 <section class="home-category-blocks padding">
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-12 col-xs-12 col-md-12">
-          <ul class="category-list navigator text-center" id="with-id">
-            {% for category in portal.solution_categories %}
-            {% if category.folders_count > 0 %}
-            <li id="{{category.id}}">
-            <a href="{{category.url}}">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <ul class="category-list navigator text-center" id="with-id">
+          {% for category in portal.solution_categories %}
+          {% if category.folders_count > 0 %}
+          <li id="{{category.id}}">
+            {% case category.id %}
+            {% when 42000064598 %}
+            <a href="https://accuinsight.cloudz.co.kr" target="_blank">
+              {% when 42000064596 %}
+              <a href="https://www.aibril.com/web/about/aibril/getAibril.do" target="_blank">
+              {% when 42000064597 %}
+              <a href="https://www.aibril.com/web/solution/getMarketDetail.do?solSeq=17" target="_blank">
+              {% when 42000014004 %}
+              <a href="/support/discussions/42000006845">
+              {% else %}
+              <a href="{{category.url}}">
+              {% endcase %}
               <span class="category-icon"></span>
               <h3>{{category.name | h }}</h3><br>
               <p class="info-text">{{ category.description | h}}</p>
-              </a>
-            </li>
-            {% endif %}
-    {% endfor %}
-          </ul>
-        
-        </div>
-     </div>
+            </a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+                
+      </div>
+    </div>
   </div>
 </section>
-
-
+        
+        
 
   
 <div class="container"> 
   <div class="row">
-    <div class="col-sm-6 col-xs-12 col-md-6">
-        <div class="quick-articles">
+    
+    <div class="col-sm">
+      <div class="quick-articles">
         <section class="articles promoted_blocks">
-                        <h3 class="promoted_title">Recent articles</h3>
+          <h3 class="promoted_title">Recent articles</h3>
           <ul class="article-list promoted-articles">
-  {% for article in portal.recent_articles limit:5 %}
-            <li class="promoted-articles-item">      
-            <a class="ol" href="{{article.url}}">{{article.title | h }}</a>
-                {% if article.body_plain != blank %}  
-                {% endif %}
-          </li>
+            {% for article in portal.recent_articles limit:5 %}
+            <li class="promoted-articles-item" style="margin-left:20px;">      
+              <a class="ol" href="{{article.url}}">{{article.title | h }}</a>
+              {% if article.body_plain != blank %}  
+              {% endif %}
+            </li>
             {% endfor %}
-            </ul>
-</section>
+          </ul>
+        </section>
       </div>
-  
-      </div>
+    </div>
   
   
  <!--<section class="submit-request-section community-image text-center">
@@ -54,27 +65,29 @@
   
   
 
- <div class="col-sm-6 col-xs-12 col-md-6">
- {% if portal.recent_popular_topics.size > 0 %}
-    <div class="recent-activity">
-      <h2 class="recent-activity-header" style="padding-top:17px;padding-bottom:14px;margin-left:20px;">Popular posts</h2>
-      <ul class="recent-activity-list">
-      {% for topic in portal.recent_popular_topics %}
-        <li class="recent-activity-item">
-          
-          <a href="{{topic.url}}" class="recent-activity-item-parent">{{ topic.user | profile_image }} {{topic.title | h}}</a>
-         <!-- <div class="t-inf">{{ topic | topic_info }}</div>-->
-        </li>
-      {% endfor %}
-      </ul>
+    <div class="col-sm">
+      {% if portal.recent_popular_topics.size > 0 %}
+      <div class="recent-activity">
+        <h3 class="recent-activity-header" style="padding-top:17px;padding-bottom:14px;">Popular posts</h3>
+        <ul class="recent-activity-list">
+        {% for topic in portal.recent_popular_topics %}
+          <li class="recent-activity-item">
+            <a href="{{topic.url}}" class="recent-activity-item">{{ topic.user | profile_image }} {{topic.title | h}}</a>
+            <!-- <div class="t-inf">{{ topic | topic_info }}</div>-->
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
     </div>
-  {% endif %}
+    
   </div>
 </div>
-
-  
-  
-  
-
         
+
+  <style type="text/css">
+    .help-center-name { font-size: 3em !important; font-weight:700; }
+  </style>
+  
+  
         

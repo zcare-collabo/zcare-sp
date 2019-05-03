@@ -1,5 +1,9 @@
 <section id="signup-container" class="content rounded-6 main fc-signup-container">
 	<h3 class="heading"> {% translate portal.user_signup_portal %} {{ portal.name }} {% translate portal.account %} </h3>
+  	<label class="checkbox">
+		<input type="checkbox" id="privacy" name="privacy">개인정보 수집 및 이용에 동의합니다.  
+  		<a href="/support/discussions/topics/42000001250" target="_blank">개인정보 처리방침</a>
+  	</label>
 	{% snippet signup_form %}
 </section>
 <section class="sidebar hide">
