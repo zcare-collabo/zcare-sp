@@ -1,5 +1,6 @@
 <section class="main content rounded-6 min-height-on-desktop fc-community-content">
-	<h2 class="heading">{% translate portal.community_forums %}</h2>
+	<!-- h2 class="heading">{% translate portal.community_forums %}</h2 -->
+  	<h2 class="heading">포럼</h2>
 	<div class="start-topic">{{ portal | link_to_start_topic }}</div>
 	{% for category in portal.forum_categories %}
 		{% if category.forums_count > 0 %}

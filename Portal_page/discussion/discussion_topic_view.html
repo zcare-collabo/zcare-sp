@@ -6,7 +6,10 @@
 		<b class="pull-right">{{ portal | link_to_start_topic }}</b>
 	{% endif %}
 	<div class="breadcrumb">
+      <!-- 기존 '토론'이라는 명칭 Back-up
 		<a href="{{ portal.discussions_home_url }}">{% translate portal_pages.groups.discussions %}</a>
+-->
+        <a href="{{ portal.discussions_home_url }}">포럼</a>
 		<a href="{{ forum_category.url }}">{{ forum_category.name | h }}</a>
 		<a href="{{ forum.url }}">{{ forum.name | h}}</a>
 	</div>
