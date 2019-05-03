@@ -94,7 +94,7 @@
 			{% if ticket.closed? %}
 				{{ ticket | status_alert }}
 			{% endif %}
-			<section id="reply-to-ticket" name="reply-to-ticket" class="user-comment {% if ticket.closed? %}hide{% endif %}">
+          <section id="reply-to-ticket" name="reply-to-ticket" class="user-comment" {% if ticket.closed? %}style="display: none;"{% endif %}>
 				<div class="user-info">
 					{{ portal.user | profile_image:'user-pointer-bottom', '40px', '40px' }}
 					<div class="user-details">
@@ -106,7 +106,7 @@
 							placeholder="{% translate portal.tickets.reply_placeholder %}" id="add-note-form-proxy" 
 							data-proxy-for="#add-note-form" />
 
-					<div id="add-note-form" class="hide">
+					<div id="add-note-form" style="display:none;">
 						{% snippet ticket_reply %}
 					</div>
 				</div>
