@@ -1,4 +1,4 @@
-﻿/*
+/*
 * Theme Name: Obscue Freshdesk Theme 
 * Author: Helpdesk theme 
 * Website: http://helpdesktheme.com/ 
@@ -7,15 +7,18 @@
 */
 
 body {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Valera Round', sans-serif;
     background: #fff;
 }
 
-body ul,
+body ul, 
 body ol {
-    list-style-type: none;
+    /* list-style-type: none; */
     padding-left: 0;
-    margin-bottom: 0;
+    margin-bottom: 15px !important;
+}
+body ol li {
+    margin-bottom: 5px !important;
 }
 
 body a:hover,
@@ -231,7 +234,7 @@ a[href*="/login"] {
     padding: 4px 0;
     margin: 1px 0 0;
     list-style: none;
-    background-color: #055b9f;
+    background-color: #efefef;
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     -webkit-background-clip: padding-box;
@@ -387,7 +390,7 @@ ul.hero-unit-block>li {
 }
 
 .ho_search .hc-search-input {
-    width: 30%;
+    width: 35%;
     float: right;
 }
 
@@ -534,7 +537,7 @@ footer.hc_footer {
 /*search results css*/
 
 .match {
-    background-color: #7ecfd0;
+    /*background-color: #7ecfd0;*/
     padding: 3px;
     border-radius: 5px;
 }
@@ -595,7 +598,7 @@ ul.category-list li span {
 
 ul.category-list li span i {
     font-size: 2.5em;
-    color: #2fa3cc;
+    color: #02B875;
     margin-right: 3px;
 }
 
@@ -685,7 +688,7 @@ li {
 
 .quick-articles section a {
     /*border-bottom: 1px solid #ddd;*/
-    color: #333333 !important;
+    color: #6392C2 !important;
     display: block;
     padding-bottom: 0px;
     font-weight: 500;
@@ -801,7 +804,7 @@ li {
 }
 
 .bg-1 {
-    background-color: #2fa3cc;
+    background-color: #02B875;
 }
 
 div.thumb {
@@ -916,8 +919,8 @@ p.hc_title:after {
 .article-body p,
 .article-body li,
 .article-body div {
-    font-size: 16px;
-    line-height: 30px;
+    font-size: 14px;
+    line-height: 20px;
     margin: 0;
 }
 
@@ -992,18 +995,18 @@ p.hc_title:after {
 
 .see-more {
     color: #333;
-    border: 1px solid #2fa3cc;
+    border: 1px solid #02B875;
     padding-top: 5px;
     border-radius: 25px;
     display: inline-block;
     font-size: 14px;
-    margin: 15px 40px;
+    margin: 15px;
     padding: 1px 20px;
     text-align: center;
 }
 
 .see-more:hover {
-    background-color: #2fa3cc;
+    background-color: #02B875;
     color: #FFFFFF;
     text-decoration: none;
     padding: 1px 20px;
@@ -1024,7 +1027,7 @@ p.hc_title:after {
     font-size: 40px;
     top: -10px;
     left: -46px;
-    color: #2fa3cc;
+    color: #02B875;
 }
 
 
@@ -1040,14 +1043,14 @@ p.hc_title:after {
     color: #fff;
     padding: 7px;
     border-radius: 4px;
-    background: #2fa3cc;
+    background: #02B875;
 }
 
 .start-topic1 a {
     color: #fff;
     padding: 7px;
     border-radius: 4px;
-    background: #2fa3cc;
+    background: #02B875;
 }
 
 @media (max-width: 720px) {
@@ -1132,7 +1135,7 @@ p.hc_title:after {
 }
 
 .bt a {
-    background-color: #2fa3cc !important;
+    background-color: #02B875 !important;
     min-width: 192px;
     line-height: 2.72;
     border-radius: 4px !important;
@@ -1185,7 +1188,7 @@ p.hc_title:after {
 /* community list css */
 
 .list-lead .btn-small {
-    background-color: #2fa3cc;
+    background-color: #02B875;
     text-shadow: none;
     color: #fff;
 }
@@ -1194,7 +1197,7 @@ p.hc_title:after {
 .nav-pills>li.active>a:focus,
 .nav-pills>li.active>a:hover {
     color: #fff;
-    background-color: #2fa3cc;
+    background-color: #02B875c;
 }
 
 .topic_list .list-lead {
@@ -1221,7 +1224,7 @@ p.hc_title:after {
 /* community view css */
 
 .toolbar-actions .btn-small {
-    background-color: #2fa3cc;
+    background-color: #02B875;
     color: #fff;
     text-shadow: none;
 }
@@ -1394,7 +1397,7 @@ p.hc_title:after {
 /* ticket list css */
 
 .ticket-toolbar {
-    background-color: #2fa3cc;
+    background-color: #02B875;
     padding: 5px;
 }
 
@@ -1443,7 +1446,7 @@ p.hc_title:after {
   border: 1px solid #ccc;
   border-radius: 5px;
   color: #333;
-  margin: 10px 0 1em 0;
+  margin: 10px 0 1em 0 !important;
   min-height: 20px;
   padding: 10px 10px 10px 36px;
   position: relative;
@@ -1453,3 +1456,130 @@ p.hc_title:after {
   background: #fffdf6;
   border-color: #ffeaae;
 }
+
+
+/* --------------------------------------------------------------------------------------------
+		2019.01 신규 Update
+-------------------------------------------------------------------------------------------- */ 
+
+/* Page location */
+.breadcrumb { padding-left: 0 !important; }
+
+/* 타이틀 상하 간격조정, Bold, size, 넘버링 리스트 앞에 점표시 삭제 */
+h1 { font-size: 2.0em !important; font-weight: 500 !important; margin-top: 30px; } 
+h2 { font-size: 1.7em !important; font-weight: 500 !important; margin-top: 30px; } 
+h3 { font-size: 1.4em !important; font-weight : 700 !important; margin-top: 10px; } 
+h4 { font-size: 1.2em !important; font-weight : 700 !important; margin-top: 20px; } 
+.intro-text { line-height:20px !important; }
+
+/* ul li 간격조정 */
+.rbtoc1544681194616 ul.toc-indentation, 
+.rbtoc1541495817419 ul.toc-indentation { list-style-type: none !important; padding-left: 30px; } /* 20190116추가 */
+ul.toc-indentation li { padding-bottom: 5px; }
+ul.toc-indentation { margin-bottom: 0 !important; padding-bottom: 0px !important; }
+ul li h4 a { font-weight: normal !important; line-height: 20px !important; padding-bottom: 10px !important;}
+
+
+/* Cloud Z CP란? - Add-on 서비스 3단 DIV 정렬 */
+.columnLayout {display: table;	table-layout: fixed;width: 100%;margin-bottom: 8px; *clear:both}
+.columnLayout .cell {vertical-align: top}
+.columnLayout .cell.aside {width: 29.9%}
+.columnLayout .cell.sidebars {width: 19.9%}
+.columnLayout .cell {display: table-cell;padding: 0 10px}
+.columnLayout .innerCell {overflow-x: auto}
+.columnLayout .innerCell h2 { font-size: 1.5em !important; font-weight : normal !important; margin-top: 0px; } 
+.three-equal .cell {*width:33.3%}
+.three-equal div.cell+div.cell+div.cell, .three-with-sidebars div.cell+div.cell+div.cell {*float:right}
+
+/* 테이블 디자인 */
+.confluenceTable { border-collapse: collapse; }
+.confluenceTable th { background-color: #f0f0f0 !important; padding: 10px !important; text-align: center; border: 1px solid #e2e2e2 !important }
+.confluenceTable th h2 { font-size: 1.5em !important; font-weight: 400 !important; margin: 0 !important } /* Cloud Z CP 역할 */
+.confluenceTable td { padding: 5px 10px !important; border: 1px solid #e2e2e2 !important }  
+.confluenceTable a { color: #0052cc; }  
+
+.confluenceTable th.confluenceTh { text-align: center !important; } 
+
+.confluenceTd p,
+.confluenceTd p .panel-title,
+.confluenceTd p .panel-title span { font-size:13px; margin:0; padding:0; padding-left: 0 !important; }
+.confluenceTd ul { margin-bottom: 5px !important; }
+
+
+/* 테이블/캡쳐이미지 상하 간격조정(이미지와 테이블이 붙어 있을때), 이미지border값 설정 */
+.table-wrap { margin-top:10px !important; margin-bottom:10px !important; }
+.article-body ol li img { margin:0 !important; padding:0 !important; }
+.article-body p.title { font-weight: bold !important; }
+.image-enlarge-link img.confluence-content-image-border,
+.confluence-embedded-file-wrapper img.confluence-content-image-border { border: 1px solid #ccc !important; }
+.confluence-embedded-image { border:0; }
+
+
+/* blockquote 점선을 라인으로 변경 */
+.article-body blockquote { border-left: 1px solid #ddd; margin-left:19px; padding:0 20px 10px 20px; }
+.article-body blockquote p { color: #707070; }
+
+/* 이미지 위에 라인 제거 */
+.confluence-embedded-file-wrapper img, .image-enlarge-link img { border:0 !important; } 
+
+
+/* Notice - 노랑색 라운드 박스 */ 
+.confluence-information-macro p.title { padding-top: 10px; }
+.confluence-information-macro-note { margin-top: 10px; padding: 0px 40px 15px 40px; border-color: #ffeaae; }
+
+.confluence-information-macro-body { margin-top: 10px; margin-bottom: 10px; } 
+.confluence-information-macro-body h3 { margin-top: 20px; } 
+.confluence-information-macro-body p { padding-top: 0; } 
+
+.confluence-information-macro-note .confluence-information-macro-body { padding-top: 10px !important; padding-bottom: 0 !important; }
+.confluence-information-macro-note .confluence-information-macro-body ul { margin-bottom:0 !important; }
+
+
+/* Info - 목차 라운드 박스 */
+.confluence-information-macro-icon { display: block; left: 10px; line-height: 20px; 
+  position: absolute; top: 12px; vertical-align: text-bottom; padding: 0px 10px 15px 10px; } 
+.aui-icon-small { height: 16px; width:16px; }
+
+.confluence-information-macro-information .confluence-information-macro-body { padding: 0; }
+.confluence-information-macro-body ul{ margin-bottom: 5px !important; }
+.has-no-icon { padding: 10px 10px 10px 20px }
+
+/* Warnign - 목차 라운드 박스 */
+.confluence-information-macro-warning { border-color: #d04437; background: #fff8f7; } 
+.confluence-information-macro-warning span.aui-iconfont-error { background: #fff8f7 url(http://nexcore.skcc.com/ko/wp-content/uploads/2019/01/icon_warning.png) no-repeat 0 0; }
+.confluence-information-macro-warning .title { padding-top: 0 !important }
+
+.confluence-information-macro-information span.aui-iconfont-info { background: #fcfcfc url(http://nexcore.skcc.com/ko/wp-content/uploads/2019/01/icon_info.png) no-repeat 0 0; } 
+.confluence-information-macro-note span.aui-iconfont-warning { background: #fff8f7 url(http://nexcore.skcc.com/ko/wp-content/uploads/2019/01/icon_note2.png) no-repeat 0 0; }
+
+
+/* CODE 박스 - 연회색 */
+.panel.pdl { border: 0;	border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px}
+.panelHeader { text-align: left; margin-top:10px; padding: 5px 15px; background: #f5f5f5; border: 1px solid #ccc !important;
+  border-radius: 3px 3px 0 0; -moz-border-radius: 3px 3px 0 0; -webkit-border-radius: 3px 3px 0 0 }
+.panelHeader b { color: #333; font-weight: bold; }
+
+.codeContent { margin-top: 10px } 
+
+.panel { margin: 5px 0 !important; border: 1px solid #ddd; border-radius:3px; }
+.panel .panelContent p { padding-top:0; }
+
+.panel .panelContent { margin: 10px; }
+.code .panelContent { margin:0 !important; }
+
+
+/* CODE 박스 - 진남색 */
+.panelContent pre { margin: 0; padding-left: 20px; font-size: 1em !important; color: #d1edff !important; border:0 !important; background: #0f192a !important; }
+
+/* 빈 테그 - 간격이 넓은 빈 태그 정리 */
+div:empty, p:empty { display: none; }
+
+/* List 스타일 */
+
+ol { list-style-type: decimal; } 
+ol ol { list-style-type: lower-alpha; } 
+ol ol ol { list-style-type: lower-roman ; } 
+ol ol ol ol { list-style-type: decimal; } 
+ol ol ol ol ol { list-style-type: lower-alpha; } 
+ol ol ol ol ol ol { list-style-type: lower-roman ; } 
+
