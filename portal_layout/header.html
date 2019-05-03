@@ -21,9 +21,10 @@
 			<div class="nav-link" id="header-tabs">
 				{% for tab in portal.tabs %}
 					{% if tab.url %}
-						<a href="{{tab.url}}" class="{% if tab.tab_type == portal.current_tab %}active{% endif %}">{{ tab.label }}</a>
+              <a href="{{tab.url}}" class="{% if tab.tab_type == portal.current_tab %}active{% endif %}" style="display: block;">{% if tab.label == "문제해결방법" %}해결책{% else %}{% if tab.label == "티켓(서비스접수)" %}티켓{% else %}{{ tab.label }}{% endif %}{% endif %}</a>
 					{% endif %}
 				{% endfor %}
+              <a href="/support/discussions/42000029798" style="display: block;">Tips</a>
               <span class="p-l-b">{{ portal | welcome_navigation }}</span>
 			</div>
 		{% endif %}
