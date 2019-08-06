@@ -28,6 +28,39 @@
 <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
+<!-- 경기도 클라우드 지원사업 세션 생성 -->
+<script type="text/javascript">
+  function make_session(user_type) {
+    if(window.sessionStorage) {
+      sessionStorage.setItem('user_type', user_type);
+    }
+  }  
+
+  window.addEventListener('DOMContentLoaded', function() {
+    if (window.location.pathname == '/support/home' || window.location.pathname == '/ko/support/home') {
+      var login_chk = document.getElementById("gg_main");
+      var child1 = login_chk.previousSibling.previousSibling.childNodes;
+      console.log(child1[1].textContent);
+      if (child1[1].textContent != '새 티켓을 제출하려면 로그인 또는 등록') {
+        login_chk.style.display = 'block';
+      }
+    }
+    
+    if (window.location.pathname == '/support/tickets/new' && sessionStorage.getItem('user_type') == 'gg') {
+      var ticket_type = document.getElementById("helpdesk_ticket_ticket_type");
+      ticket_type.value = "문의";
+      var guide_line = document.getElementById("gg");
+      guide_line.style.display = 'block';
+      //var ticket_l1 = document.getElementById("helpdesk_ticket_custom_field_cf_l1_866474");
+      //ticket_l1.value = "사업문의";
+  
+      //alert('※ 경기도 클라우드 지원사업 사전상담 접수 안내\n - 티켓 유형 : 문의\n - 대상 서비스 : 기타 > 기타');
+    }
+    
+    sessionStorage.removeItem('user_type');
+  });
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -35,3 +68,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KB23FL5');</script>
 <!-- End Google Tag Manager -->
+
+
+<meta name="google-site-verification" content="zCbpQPzmAvGzH3Scgb-fuo9UdOCGD80Y08zlCKv_F_Q" />
