@@ -13,6 +13,11 @@
 			</div>
           <div class="hc-nav hide-in-mobile {% if portal.contact_info %} nav-with-contact {% endif %}" style="color: black;">
 				{{ portal | helpcenter_navigation }}
+            	<div id='gg_main' style='display: none;'>
+                  <a href="/support/tickets/new" class="mobile-icon-nav-newticket new-ticket ellipsis" onclick="make_session('gg')" title="경기도 클라우드 지원사업 사전상담 접수">
+                     <span> 경기도 클라우드 지원사업 사전상담 접수 </span>
+                   </a>
+                 </div>
 			</div>
             <div class="hero-unit-icon">
               <ul class="hero-unit-block">
