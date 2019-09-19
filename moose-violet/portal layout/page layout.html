@@ -1,0 +1,67 @@
+{{ header }}
+<div class="page">
+	
+	
+	<!-- Search and page links for the page -->
+	{% if portal.current_tab and portal.current_tab == "home" %}
+		<section class="hero-unit text-center">	
+			<div class="container">
+				<div class="hc_search">
+					<h2 class="help-center-name">Innovative Digital Services with<br>Digital DNA and Value Sharing</h2>
+					{% snippet search_form %}
+ 				</div>  
+			</div>
+          <div class="hc-nav hide-in-mobile {% if portal.contact_info %} nav-with-contact {% endif %}" style="color: black;">
+				{{ portal | helpcenter_navigation }}
+            	<div id='gg_main' style='display: none;'>
+                  <a href="/support/tickets/new" class="mobile-icon-nav-newticket new-ticket ellipsis" onclick="make_session('gg')" title="경기도 클라우드 지원사업 사전상담 접수">
+                     <span> 경기도 클라우드 지원사업 사전상담 접수 </span>
+                   </a>
+                 </div>
+			</div>
+            <div class="hero-unit-icon">
+              <ul class="hero-unit-block">
+                <li><a></a></li>
+              </ul>
+            </div> 
+		</section>
+	{% endif %}
+
+	<!-- Notification Messages -->
+	{{ page_message }}
+
+	{% if portal.current_page != "user_signup" and portal.current_page != "submit_ticket" %}
+	<div class="">		
+		{{ content_for_layout }}
+	</div>
+	{% elsif portal.current_page == "submit_ticket" %}
+	<div class="">		
+		<div class="new_ticket_page">
+		{{ content_for_layout }}
+		</div>
+	</div>
+	{% else %}
+	<div class="signup-page">
+	<div class="signup-wrapper">
+	{{ content_for_layout }}
+	</div>
+	</div>
+	{% endif %}
+</div>
+{{ footer }}
+
+
+<style type="text/css">
+  .hc-search-button button.btn-primary { border-left: 1px solid #e6e8ee !important; background:#eeedf4 !important; }
+  .hide-in-mobile { color: #fff !important; margin-right:25px; }
+  .hide-in-mobile a { color: #EC795A !important; }
+  .hide-in-mobile a:hover { text-decoration: underline; }
+  .mobile-icon-nav-status.check-status::before { padding-top: 1px !important; }
+  .hc-nav a span { padding-bottom:2px; }
+  .home-category-blocks ul.category-list li, ul.quick-article-block>li { margin: 10px 15px; }
+  .home-category-blocks ul.category-list li p.info-text { margin: 0; letter-spacing: -0.3px; }
+  .home-category-blocks ul.category-list li:last-child { background: #4d468c; }
+  
+  .quick-articles section a { color: #0052CC !important; }
+  .quick-articles section a:hover { color: #183247 !important; } 
+</style>
