@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="container-inner">
+    <div class="announcements-page">
+      <div id="announcements-page">
+        <h1 class="h2">
+          {% translate portal.announcements %}
+        </h1>
+          {% paginate portal.itil_announcements by 10 %}
+            <div class="row clearfix articles announcements-list">
+              {% for topic in paginate.collection %}
+                <div class="column column--sm-6 articles__item announcements-list-item">
+                  <a class="articles__link"  title="{{topic.title | h}}" href="{{ topic.url }}">{{ topic.title | h }}</a>
+                  <p class="meta">{{ topic | topic_brief }}</p>
+                </div>
+              {% endfor %}
+              </div>
+            {{ paginate | default_pagination }}
+          {% endpaginate %}
+      </div>
+    </div>
+  </div>
+</div>
