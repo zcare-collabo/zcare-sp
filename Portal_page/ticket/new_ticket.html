@@ -1,18 +1,71 @@
-<section class="content main rounded-6 fc-new-ticket">
-	<h3 class="heading">{% translate ticket.submit_ticket_title %}</h3>
-  <div id='gg' style='display: none;'>
-  <h4> ※ 경기도 클라우드 지원사업 사전상담 티켓 접수 안내 </h4>
-  <h4> &nbsp;&nbsp;&nbsp;&nbsp;티켓 유형 : 요청 </h4>
-  <h4> &nbsp;&nbsp;&nbsp;&nbsp;대상 서비스 : 경기도 클라우드 지원사업 > 상담요청 </h4>
-    <h4 style="color:#ea0530;"> &nbsp;&nbsp;&nbsp;&nbsp;본문 : 회사명/이름/직급/연락처 를 반드시 기재해주시기 바랍니다. (누락 시 상담이 지연될 수 있습니다.) </h4>
-  </div>
+<div class="container">
+	<div class="container-inner">
+		<div class="new-ticket-page">
+		  <div class="row clearfix">
+		    <div class="column column--sm-8 ">
+		      <h1 class="new-ticket-title">{% translate ticket.submit_ticket_title %}</h1>
+
+		      <div class="new-ticket-form">
+		        {% snippet new_ticket_form %}
+		      </div>
+		    </div>
+		    <div class="column column--sm-4" id="new-ticket-search"></div>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<script type='text/javascript'>
+
+jQuery(function() {
+  // 개인정보처리방침 링크 추가
+  var chk_field = document.getElementById('helpdesk_ticket_custom_field_cf_rand227718_1117635');
+  var agree_policy_div = document.createElement('div');
+  agree_policy_div.setAttribute('class', 'controls');
+  var agree_policy_a = document.createElement('a');
+  agree_policy_a.setAttribute('href', 'https://support.cloudz.co.kr/support/discussions/topics/42000001250');
+  agree_policy_a.setAttribute('target', '_blank');
+  agree_policy_a.setAttribute('style', 'color: blue;');
+  agree_policy_a.innerHTML = 'Support Portal 개인정보 처리방침';
+  agree_policy_div.appendChild(agree_policy_a);
+  chk_field.parentNode.parentNode.parentNode.appendChild(agree_policy_div);
+
+  // 로그인 된 사용자의 경우
+  {% if portal.user.id %}
+      // console.log("Log-In");
+    
+      // 개인정보처리방침 CheckBox 제어
+      chk_field.checked = true;
   
+      // 개인정보처리방침 필드 Display 제어
+      chk_field.parentNode.parentNode.parentNode.style.display = "none";
+  
+  {% else %}
+      // console.log("Not Log-In");
+    
+  {% endif %}
+  
+    
+  // 경기도 지원 사업 티켓 작성
+  if(window.location.href.indexOf('?department=salesn') === -1){
+	  //Remove additional fields for the default form  
+    jQuery('#helpdesk_ticket_custom_field_cf_rand910647_866474, #helpdesk_ticket_custom_field_cf_rand669743_866474, #helpdesk_ticket_custom_field_cf_rand557328_866474, #helpdesk_ticket_custom_field_cf_rand558545_866474').parents('.control-group').remove();
+  } else {
+	//Preselect default values
+	jQuery("#helpdesk_ticket_ticket_type option[value='요청']").prop('selected', true);	
+  	jQuery("#helpdesk_ticket_custom_field_cf_l1_866474 option[value='경기도 클라우드 지원사업']").prop('selected', true).trigger('change');
+  	jQuery("#helpdesk_ticket_custom_field_cf_l2_866474 option[value='상담요청']").prop('selected', true);
+  }
+  
+  //Autofill fields with user contacts
+  var $userPhone = "{{ portal.user.phone }}";
+  if($userPhone.length === 0){
+    $userPhone = "{{ portal.user.mobile }}";
+  }
+  jQuery("#helpdesk_ticket_custom_field_cf_rand910647_866474").val("{{ portal.user.name }}");
+  jQuery("#helpdesk_ticket_custom_field_cf_rand669743_866474").val($userPhone);
+  jQuery("#helpdesk_ticket_custom_field_cf_rand557328_866474").val("{{ portal.user.company_name }}");
+  jQuery("#helpdesk_ticket_custom_field_cf_rand558545_866474").val("{{ portal.user.job_title }}");
+});
 
-
-  	{% snippet new_ticket_form %}
-  <!-- iframe src="https://www.cloudz.co.kr/main" frameborder=0></iframe -->
-</section>
-
-<section class="sidebar content-light rounded-6 ticket-search" id="new-ticket-search">
-	<br />
-</section>
+</script>
