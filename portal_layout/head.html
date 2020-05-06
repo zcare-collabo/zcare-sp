@@ -1,66 +1,3 @@
-<!-- Title for the page -->
-{% if meta.title == '토론' %}
-<title> 포럼 : {{ portal.name }} </title>
-{% endif %}
-{% if meta.title == '토론 시작' %}
-<title> 새로운 주제 : {{ portal.name }} </title>
-{% else %}
-<title> {{ meta.title }} : {{ portal.name }} </title>
-{% endif %}
-
-<!-- Meta information -->
-{{ meta | default_meta }}
-
-<!-- Responsive setting -->
-{{ portal | default_responsive_settings }}
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href='https://fonts.googleapis.com/css?family=Nunito:400,700,300' rel='stylesheet' type='text/css'>
-
-<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-
-<!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
-
-<!-- 경기도 클라우드 지원사업 세션 생성 -->
-<script type="text/javascript">
-  function make_session(user_type) {
-    if(window.sessionStorage) {
-      sessionStorage.setItem('user_type', user_type);
-    }
-  }  
-
-  window.addEventListener('DOMContentLoaded', function() {
-    if (window.location.pathname == '/support/home' || window.location.pathname == '/ko/support/home') {
-      var login_chk = document.getElementById("gg_main");
-      var child1 = login_chk.previousSibling.previousSibling.childNodes;
-      console.log(child1[1].textContent);
-      if (child1[1].textContent != '새 티켓을 제출하려면 로그인 또는 등록') {
-        login_chk.style.display = 'block';
-      }
-    }
-    
-    if (window.location.pathname == '/support/tickets/new' && sessionStorage.getItem('user_type') == 'gg') {
-      var ticket_type = document.getElementById("helpdesk_ticket_ticket_type");
-      ticket_type.value = "문의";
-      var guide_line = document.getElementById("gg");
-      guide_line.style.display = 'block';
-      //var ticket_l1 = document.getElementById("helpdesk_ticket_custom_field_cf_l1_866474");
-      //ticket_l1.value = "사업문의";
-  
-      //alert('※ 경기도 클라우드 지원사업 사전상담 접수 안내\n - 티켓 유형 : 문의\n - 대상 서비스 : 기타 > 기타');
-    }
-    
-    sessionStorage.removeItem('user_type');
-  });
-</script>
-
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -69,5 +6,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-KB23FL5');</script>
 <!-- End Google Tag Manager -->
 
+{% assign freshservice_enabled = false %}
 
-<meta name="google-site-verification" content="zCbpQPzmAvGzH3Scgb-fuo9UdOCGD80Y08zlCKv_F_Q" />
+<!-- Title for the page -->
+<title> {{ meta.title }} : {{ portal.name }} </title>
+
+<!-- Meta information -->
+{{ meta | default_meta }}
+
+<!-- Responsive setting -->
+{{ portal | default_responsive_settings }}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="https://fonts.googleapis.com/css?family=Varela+Round:regular" rel="stylesheet">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.10.0/styles/github.min.css" />
+<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.magnific-popup/1.0.0/magnific-popup.css" />
+
+{% if freshservice_enabled %}
+<!-- Stop search engine crawling -->
+<META NAME="ROBOTS" CONTENT="NOINDEX">
+<META NAME="ROBOTS" CONTENT="NOFOLLOW">
+{% endif %}
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    'event' : 'click',
+    'userId' : '{{ portal.user.id }}'
+  });
+</script>
