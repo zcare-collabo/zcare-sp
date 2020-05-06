@@ -1,59 +1,71 @@
-{% if  portal.current_page != 'csat_survey' %}
-	<!--<header class="banner">
-      <div class="container">
-		<div class="banner-wrapper page">
-			<div class="banner-title">
-				{{ portal | logo }}
-              <h1 class="heading" style="color:#fff;text-transform:uppercase;">{{portal.name|h}}</h1>
-			</div>
-			<nav class="banner-nav">
-				{{ portal | welcome_navigation }}
-			</nav>
-		</div>
-</div>
-	</header>-->
-	<nav class="page-tabs">
-      <div class="container">
-	<div class="page no-padding">
-		{% if portal.tabs.size > 0 %}
-      <a href="/support/home">{{ portal | logo }}</a>
-			<a data-toggle-dom="#header-tabs" href="#" data-animated="true" class="mobile-icon-nav-menu show-in-mobile"></a>
-			<div class="nav-link" id="header-tabs">
-				{% for tab in portal.tabs %}
-					{% if tab.url %}
-              <a href="{{tab.url}}" class="{% if tab.tab_type == portal.current_tab %}active{% endif %}" style="display: block;">{% if tab.label == "문제해결방법" %}해결책{% else %}{% if tab.label == "티켓(서비스접수)" %}티켓{% else %}{{ tab.label }}{% endif %}{% endif %}</a>
-					{% endif %}
-				{% endfor %}
-              <a href="/support/discussions/42000029798" style="display: block;">Tips</a>
-              <span class="p-l-b">{{ portal | welcome_navigation }}</span>
-			</div>
-		{% endif %}
-		</div>
-</div>
-	</nav>
+{% assign topbar_image = false %}
 
-<!-- Search and page links for the page -->
-{% if portal.current_tab and portal.current_tab != "home" %}
-	<section class="hero_unit">	
-		<!--<div class="page no-padding">-->
-		<div class="container">
-			<div class="ho_search">
-				{% snippet search_form %}
-			</div>
-		</div>
-      <div class="hc-nav hide-in-mobile {% if portal.contact_info %} nav-with-contact {% endif %}" style="display:none;">				
-			{{ portal | helpcenter_navigation }}
-		</div>
-		<!--</div>-->
-	</section>
-{% endif %}
-{% else %} 
-	<header class="banner">
-		<div class="banner-wrapper">
-			<div class="banner-title">
-				{{ portal | logo : true }}
-				<h1 class="ellipsis heading">{{portal.name|h}}</h1>
-			</div>
-		</div>
-	</header>
+<header class="topbar container {% if portal.current_page == 'portal_home' %}topbar--large{% if topbar_image %} topbar--with-image{% endif %}{% else %}topbar--small{% endif %}" data-topbar>
+  <div class="container-inner topbar__container-inner">
+    <div class="topbar__inner">
+      <div class="topbar__col clearfix">
+        <div class="logo-wrapper">
+          <div class="logo">
+            <a href="{% if freshservice_enabled %}/support/home{% else %}{{ portal.linkback_url }}{% endif %}">
+              <img src="https://breezythemes.s3-us-west-2.amazonaws.com/cloudz/logo.png" alt="">
+            </a>
+          </div>
+        </div>
+        <button type="button" role="button" aria-label="Toggle Navigation" class="lines-button x" data-toggle-menu> <span class="lines"></span> </button>
+      </div>
+      <div class="topbar__col topbar__menu">
+        <div class="topbar__collapse" data-menu>
+          <div class="topbar__controls {% if portal.user.id %}topbar__controls--logged-in{% else %}topbar__controls--anonymous{% endif %}">
+            <a class="btn btn-topbar" href="/support/home"><span>홈</span></a>
+            <a class="btn btn-topbar" href="/support/solutions"><span>해결책</span></a>
+            <a class="btn btn-topbar" href="/support/discussions"><span>포럼</span></a>
+            <a class="btn btn-topbar" href="/support/tickets"><span>티켓</span></a>
+            <a class="btn btn-topbar btn-tips" href="/support/discussions/42000029798"><span>Tips</span></a>
+            {{ portal | welcome_navigation }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and page links for the page -->
+  {% if portal.current_tab %}
+    {% if portal.current_page == 'portal_home' %}
+      <div class="hero-unit" data-hero-unit>
+        <div class="container-inner search-box search-box--hero-unit" data-search-box>
+          <div class="intro-title">Innovative Digital Services with Digital DNA and Value Sharing</div>
+          {% snippet search_form %}
+			<div class="search_popular_unit">
+            <ul class="search_popular">
+             	<li>인기검색어</li>
+				<li><a href="/support/search?term=slack+%EC%95%8C%EB%A6%BC&authenticity_token=zjQkQ4xDk0tf0uI4rzIkgklgCguHq2AH2Lq8v%2BJYkmQ%3D">Slack 알림</a></li>
+              	<li><a href="/support/search?term=telegraf+%EC%84%A4%EC%A0%95&authenticity_token=zjQkQ4xDk0tf0uI4rzIkgklgCguHq2AH2Lq8v%2BJYkmQ%3D">telegraf 설정</a></li>
+              	<li><a href="/support/search?term=%EB%B9%8C%EB%93%9C+%EB%B0%B0%ED%8F%AC+%EA%B4%80%EB%A6%AC&authenticity_token=5upt%2F9YxXjudFxcfzZNc3ZUbrYvqyiWNe1veXlDi%2Fro%3D">빌드 배포 관리</a></li>
+              	<li><a href="/support/search?term=MariaDB+%EB%A9%94%EB%AA%A8%EB%A6%AC+%EC%84%A4%EC%A0%95&authenticity_token=zjQkQ4xDk0tf0uI4rzIkgklgCguHq2AH2Lq8v%2BJYkmQ%3D">MariaDB 메모리 설정</a></li>
+              	<li><a href="/support/search?term=PVC&authenticity_token=f9XUhNidC7%2Fjr3ENi6Q1WxrqVFuqE5vQqvuh%2Bzpg%2BJU%3D">PVC</a></li>
+			</ul>
+        </div>
+          <div class="hero-unit-nav hide-in-mobile">
+              <div class="hero-unit-nav-item">
+                <span class="hero-unit-nav-icon hero-unit-nav-icon--new fa fa-plus-square"></span>
+                <a href="{{portal.new_ticket_url}}">신규 티켓 작성</a>
+              </div>
+              <div class="hero-unit-nav-item">
+                <svg class="hero-unit-nav-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 24 24" height="18" width="18"><g transform="matrix(1,0,0,1,0,0)"><path d="M19.354,14.531c-1.06,0.033-2.048-0.535-2.554-1.468c-0.155-0.229-0.466-0.288-0.694-0.133 c-0.103,0.07-0.176,0.176-0.206,0.297l-1.4,5.852c-0.191,0.806-0.999,1.305-1.805,1.114c-0.57-0.135-1.009-0.589-1.125-1.163 L9.521,9.049c-0.057-0.27-0.323-0.443-0.593-0.385C8.732,8.706,8.579,8.861,8.541,9.058c-0.183,1.036-0.434,2.059-0.749,3.062 c-0.209,1.047-0.941,1.913-1.938,2.294c-0.32,0.083-0.65,0.122-0.98,0.117H0.5c-0.276,0-0.5,0.224-0.5,0.5V21.5 C0,22.881,1.119,24,2.5,24h19c1.381,0,2.5-1.119,2.5-2.5v-6.47c0-0.276-0.224-0.5-0.5-0.5L19.354,14.531z M4.874,12.531 c0.822,0,1-0.3,1.866-4.851c0.213-1.115,0.464-2.433,0.788-3.985c0.169-0.811,0.963-1.332,1.774-1.163 c0.584,0.122,1.041,0.578,1.163,1.163l2.16,10.533c0.056,0.27,0.32,0.445,0.59,0.389c0.19-0.039,0.34-0.185,0.386-0.373l1.06-4.419 c0.193-0.806,1.002-1.303,1.808-1.11c0.475,0.114,0.865,0.451,1.045,0.905c0.119,0.3,0.228,0.594,0.333,0.88 c0.6,1.622,0.836,2.03,1.507,2.03H23.5c0.276,0,0.5-0.224,0.5-0.5V2.5C24,1.119,22.881,0,21.5,0h-19C1.119,0,0,1.119,0,2.5v9.53 c0,0.276,0.224,0.5,0.5,0.5L4.874,12.531z" stroke="none" fill="#000000" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"></path></g></svg>
+                <a href="/support/tickets">티켓 진행상황을 확인</a>
+              </div>
+              <div class="hero-unit-nav-item hero-unit-nav-item--full">                
+                <span class="hero-unit-nav-icon hero-unit-nav-icon--new2 fa fa-plus-square"></span>
+                <a href="/support/tickets/new?department=salesn">경기도 클라우드 지원사업 사전상담 접수</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
+</header>
+
+{% if portal.current_page == 'portal_home' %}
+  <div class="home-image-wrapper"><div class="home-image"></div></div>
 {% endif %}
