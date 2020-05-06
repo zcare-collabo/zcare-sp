@@ -1,14 +1,28 @@
-<section class="main content rounded-6 fc-new-topic">
-	<!-- To set topic title based on edit or delete -->
-	<h3 class="heading">
-		{% if topic.id %}
-			{% translate topic.edit %}
-		{% else %}
-			{% translate topic.new %}
-		{% endif %}
-	</h3>
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
 
-	{% snippet new_topic_form %}
-</section>
-
-<section class="sidebar hide"><br /></section>
+<div class="container">
+	<div class="container-inner">
+		<div class="new-topic-page">
+		  <div class="row clearfix">
+		    <div class="column column--sm-8 column--sm-offset-2">
+		      <h1 class="new-topic-title">
+		        {% if topic.id %}
+		          {% translate topic.edit %}
+		        {% else %}
+		          {% translate topic.new %}
+		        {% endif %}
+		      </h1>
+		      <div class="new-topic-form">
+		        {% snippet new_topic_form %}
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+</div>
