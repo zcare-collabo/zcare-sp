@@ -1,45 +1,64 @@
-<section class="content rounded-6 min-height-on-desktop fc-forum-list {{forum.type_name}}" id="forum-{{ forum.id }}">
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
 
-	{% if forum.type_class != 'announcement' %}
-		<b class="pull-right">{{ portal | link_to_start_topic }}</b>
-	{% endif %}
-	<div class="breadcrumb">
-		<!-- a href="{{ portal.discussions_home_url }}">{% translate portal_pages.groups.discussions %}</a -->
-      	<a href="{{ portal.discussions_home_url }}">포럼</a>
-		<a href="{{ forum.forum_category.url }}">{{ forum.forum_category.name | h }}</a>
-	</div>	
-	<i class="page-stamp page-stamp-{{ forum.type_class }}">
-		<i class="icon-page-{{ forum.type_class }}"></i>
-	</i>
-	<div class="list-lead">
-		{{ forum.name|h}} <span class="item-count">{{ forum.topics_count }}</span>
-		<div class="pull-right align-right">{{ forum | follow_forum_button }}</div>
-	</div>
-	<p class="intro" title="{{forum.description|h}}">
-		{{ forum.description|h}}
-	</p>
-	
-	{{ forum | default_topic_filters }}
+<div class="container">
+  <div class="container-inner">
+    <div class="forum-page" id="forum-{{ forum.id }}">
+      <ol class="breadcrumbs">
+        <li title="{% translate portal_pages.groups.discussions %}">
+          <a href="{{ portal.discussions_home_url }}">{% translate portal_pages.groups.discussions %}</a>
+        </li>
+        <li>
+          <a href="{{ forum.forum_category.url }}">{{ forum.forum_category.name | h }}</a>
+        </li>
 
-	{% paginate forum.topics by 10 %}
-		<div class="c-list topic-list" id="forum-topic-list">					
-			{% for topic in paginate.collection %}
-				<div class="c-row c-user-thumb {% if topic.sticky? %} c-topic-sticky {% endif %}">
-					{{ topic.user | profile_image }}
-					{{ topic | topic_labels }}
-					<div class="ellipsis">
-						{{ topic | topic_small_icon }}						
-						<a class="c-link" title="{{topic.title | h}}" href="{{topic.url}}">{{topic.title | h}}</a>
-					</div>				
-					<div class="help-text"> 
-						{{ topic | topic_info_with_votes }}
-					</div>
-				</div>
-			{% else %}
-				<p class="lead">{% translate portal.no_topics_in_this_view %}</p>
-			{% endfor %}
-		</div>			
-		{{ paginate | default_pagination }}
-	{% endpaginate %}
-</section>
-	 
+      </ol>
+      
+      <div class="row clearfix">
+        <div class="column column--sm-8">
+          <h1 class="h3 forum-title">{{ forum.name| h }}<span class="forum-title-count">({{ forum.topics_count }})</span></h1>
+          {% if forum.description.size > 0 %}
+            <p class="forum-desc meta">
+              {{ forum.description | h }}
+            </p>
+          {% endif %}
+        </div>
+        <div class="column column--sm-4 forum-buttons">          
+          {% if forum.type_name != 'announcement' %}
+            {{ portal | link_to_start_topic }}
+          {% endif %}<br />
+          {{ forum | follow_forum_button }}
+        </div>
+      </div>   
+
+      <div class="forum-filters">
+        {{ forum | default_topic_filters }}
+      </div>
+
+      {% paginate forum.topics by 10 %}
+        <div class="c-list forum-topics">
+          {% for topic in paginate.collection %}
+            <div class="c-row forum-topics__item">
+                <span class="forum-item__icon">
+                  {{ topic.user | profile_image:'user-pointer-bottom', '50px', '50px' }}
+                </span>
+                <div class="forum-item__info">
+                  <a class="forum-item__link" href="{{ topic.url }}">{{ topic.title | h }} ({{topic.comment_count}})</a>
+                  <p class="forum-item__date">{{topic.created_on | short_day_with_time}}</p>
+                </div>
+                <div class="forum-item_description">{{ topic.first_post.body | h | truncate:160 }}</div>
+            </div>
+          {% else %}
+            <p>{% translate portal.no_topics_in_this_view %}</p>
+          {% endfor %}
+          </div>
+        {{ paginate | default_pagination }}
+      {% endpaginate %}
+    </div>
+  </div>
+</div>
