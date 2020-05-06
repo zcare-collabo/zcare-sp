@@ -1,25 +1,92 @@
-<section class="main content rounded-6 min-height-on-desktop fc-solution-home" id="solutions-home">
-	<!--h2 class="heading">{% translate portal.knowledge_base %}</h2-->
-    <h2 class="heading">해결책</h2>
-	{% for category in portal.solution_categories %}
-		{% if category.folders_count > 0 %}
-		<div class="cs-s">
-			<h3 class="heading"> 
-				{{ category.name | link_to: category.url }} 
-			</h3>
-			<div class="cs-g-c">
-				{% for folder in category.folders %}
-					<section class="cs-g article-list">
-						<div class="list-lead">
-							{{ folder | link_to_folder_with_count }}
-						</div>
-						{{ folder | article_list:5 }}
-					</section>
-				{% else %}
-					{{ portal | filler_for_solutions }}
-				{% endfor %}
-			</div>
-		</div>	
-		{% endif %}
-	{% endfor %}
-</section>
+{% assign category_tree_enabled = true %}
+
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
+
+<div class="container" data-home-page>
+  <div class="container-inner">
+
+    <div class="row clearfix">
+      <div class="column column--sm-12">
+        <ol class="breadcrumbs">
+          <li>
+            <a href="/support/home">{{ portal.name }}</a>
+          </li>
+          <li title="{% translate portal.solutions_home %}">
+            {% translate portal.solutions_home %}
+          </li>
+        </ol>
+      </div>
+    </div>                  
+
+  </div>
+</div>
+
+<!-- CATEGORY TREEE -->
+{% if category_tree_enabled %}
+  <div class="category-tree" id="category-tree">
+      <div class="container">
+          <div class="container-inner">
+            <div class="row category-tree-row">   
+              {% for category in portal.solution_categories %}
+                {% if category.folders_count > 1 %}
+                  <section class="column column--sm-4 category-tree-item">
+                    <h2 class="category-tree-item__title">
+                      <a class="category-tree-item__title-link" href="{{category.url}}">{{category.name}}</a>
+                    </h2>
+                    <div class="category-tree-item__folders">
+                      {% for folder in category.folders | limit: 5 %}
+                        {% if folder.articles_count > 0 %}
+                          <section class="folder">
+                            <h3 class="folder__title">
+                              <a class="folder__title-link" href="{{folder.url}}">{{folder.name}} <span class="meta">({{ folder.articles.size }})</span></a>
+                            </h3>
+                            <ul class="articles">
+                              {% for article in folder.articles | limit: 5 %}
+                                <li class="articles__item">
+                                  <a class="articles__link" href="{{ article.url }}">{{ article.title | h }}</a>
+                                </li>
+                              {% endfor %}
+                            </ul>
+                            {% if folder.articles.size > 5 %}
+                              <a href="{{ folder.url }}" class="btn btn--default see-all-articles">View all ({{folder.articles_count}})</a>
+                            {% endif %}
+                          </section>
+                        {% endif %}
+                      {% else %}
+                        {{ portal | filler_for_solutions }}
+                      {% endfor %}
+                      </div>
+                      {% if category.folders_count > 5 %}
+                      <div class="folder__title">
+                        <a href="{{category.url}}" class="btn btn--default see-all-articles">View All</a>
+                      </div> 
+                      {% endif %}                     
+                  </section>
+                {% endif %}
+              {% endfor %}
+            </div>
+        </div>
+      </div>
+  </div>
+{% endif %}
+<!-- / CATEGORY TREE -->
+
+<script type="text/javascript">
+
+  jQuery(function() {
+
+    jQuery('.sidenav-category__link').each(function(){
+      if(jQuery(this).text() == jQuery('.main-category-title').text()){
+        jQuery(this).trigger('click');
+      }
+    });
+    
+  });
+  
+  </script>
