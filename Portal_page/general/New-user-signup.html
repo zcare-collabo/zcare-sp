@@ -1,11 +1,43 @@
-<section id="signup-container" class="content rounded-6 main fc-signup-container">
-	<h3 class="heading"> {% translate portal.user_signup_portal %} {{ portal.name }} {% translate portal.account %} </h3>
-  	<label class="checkbox">
-		<input type="checkbox" id="privacy" name="privacy">개인정보 수집 및 이용에 동의합니다.  
-  		<a href="/support/discussions/topics/42000001250" target="_blank">개인정보 처리방침</a>
-  	</label>
-	{% snippet signup_form %}
-</section>
-<section class="sidebar hide">
-	<br/>
-</section>
+{% assign freshservice_enabled = false %}
+
+<div class="container">
+  <div class="container-inner">
+    <div class="signup-page" id="login-page-wrapper">
+      <div class="row clearfix">
+        <div class="column column--sm-8 column--sm-offset-2">
+          <h1 class="signup-page__title">
+            {% if freshservice_enabled %}
+              {% translate portal.signup_form.title %} {{ portal.name }}
+              {% translate portal.signup_form.account %}
+            {% else %}
+              {% translate portal.user_signup_portal %} {{ portal.name }}
+              {% translate portal.account %}
+            {% endif %}
+          </h1>
+          {% snippet signup_form %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Privacy Policy CheckBox -->
+<script type="text/javascript">
+
+  (function($) {
+	
+    var chk_field = document.getElementById('user_custom_field_cf_rand389408');
+    var agree_policy_div = document.createElement('div');
+    agree_policy_div.setAttribute('class', 'controls');
+    var agree_policy_a = document.createElement('a');
+    agree_policy_a.setAttribute('href', 'https://support.cloudz.co.kr/support/discussions/topics/42000001250');
+    agree_policy_a.setAttribute('target', '_blank');
+    agree_policy_a.setAttribute('style', 'color: blue;');
+    agree_policy_a.innerHTML = '개인정보 처리방침';
+    agree_policy_div.appendChild(agree_policy_a);
+    chk_field.parentNode.parentNode.appendChild(agree_policy_div);
+{% if portal.user.id %}console.log("Log-In");{% else %}console.log("Not Log-In"){% endif %}
+  })(jQuery);
+
+</script>
