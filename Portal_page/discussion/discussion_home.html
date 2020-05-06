@@ -1,75 +1,183 @@
-<section class="main content rounded-6 min-height-on-desktop fc-community-content">
-	<!-- h2 class="heading">{% translate portal.community_forums %}</h2 -->
-  	<h2 class="heading">포럼</h2>
-	<div class="start-topic">{{ portal | link_to_start_topic }}</div>
-	{% for category in portal.forum_categories %}
-		{% if category.forums_count > 0 %}
-			<div class="cs-s">
-				<h3 class="heading">
-					{{ category.name | link_to: category.url }}
-				</h3>
-				<div class="cs-g-c">
-				{% for forum in category.forums %}
-					<section class="cs-g topic-list">
-						<div class="list-lead badge-{{ forum.type_class }}">
-							{{ forum | link_to_forum_with_count }}
-						</div>
-						{{ forum | topic_list:5 }}
-					</section>
-				{% endfor %}
-				</div>
-			</div>
-		{% endif %}
-	{% endfor %}
-</section>
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
 
-<section class="sidebar content rounded-6 fc-topics-content">
-	{% if portal.recent_popular_topics.size > 0 %}
-		<section class="cs-g-c topic-list">
-			<div class="list-lead">{% translate portal.popular_topics %}</div>
-			<p class="intro">{% translate portal.showing_recently_popular_topics %}</p>
-			<ul>
-			{% for topic in portal.recent_popular_topics %}
-				<li class="cs-g-3">
-					<div class="ellipsis">
-						<a href="{{topic.url}}">{{topic.title | h}}</a>
-					</div>
-					<div class="help-text">
-						{{ topic | topic_info }}
-					</div>
-				</li>
-			{% endfor %}
-			</ul>
-		</section>
-	{% endif %}
+<div class="container">
+	<div class="container-inner">
+		<div class="discussions-category-list-page">
+      <div class="row clearfix">
+        <div class="column column--sm-12">
+          <ol class="breadcrumbs">
+            <li>
+              <a href="/support/home">{{ portal.name }}</a>
+            </li>
+            <li title="포럼">
+                포럼
+            </li>
+          </ol>
+        </div>
+      </div>
 
-	{% if portal.my_topics.size > 0 %}
-		<section class="cs-g-c topic-list">
-			<div class="list-lead">{% translate portal.my_topics %}</div>
-			<p class="intro">{% translate portal.showing_my_topics %}</p>
-			<ul>
-			{% for topic in portal.my_topics limit:5 %}
-				<li class="cs-g-3">
-					<div class="ellipsis">
-						<a href="{{topic.last_post_url}}">{{topic.title | h}}</a>
-					</div>
-					<div class="help-text">
-						{{ topic | my_topic_info }}
-						{% if topic.last_post.present? %}
-							<div class="my_topics_right">
-								{{ topic.last_post.body | h | truncate:60 }}
-								{% if topic.last_post.body.size > 60 %}
-									<a href="{{ topic.last_post_url }}">{% translate more %}</a>
-								{% endif %}
-							</div>
-						{% endif %}
-					</div>
-				</li>
-			{% endfor %}
-			</ul>
-			{% if portal.my_topics_count > 5 %}
-				<a href="{{portal.my_topics_url}}" class="see-more">{% translate portal.topic.all_topics %}</a>
-			{% endif %}
-		</section>
-	{% endif %}
-</section>
+      <div class="text-right">
+        <a class="btn btn-primary btn-primary--green btn-new-topic" href="/support/discussions/topics/new">새로운 주제(Topic)를 시작합니다.</a>
+      </div>
+   
+      <h1 class="knowledge-base-title">포럼</h1>
+
+		  {% if portal.forum_categories.size > 1 %}
+		    <ul class="list-unstyled row clearfix forum-category-list">
+		      {% for category in portal.forum_categories %}
+		        <li class="column column--sm-12 forum-category-list-item">
+              <h2 class="forum-list-item__title">
+                <a class="forum-list-item__link" href="{{ category.url }}">{{ category.name }}</a>
+              </h2>
+              <div class="row clearfix">
+                {% if category.forums_count > 0 %}
+  <ul class="list-unstyled forum-list">
+    {% for forum in category.forums %}
+    {% if forum.topics_count > 0 %}
+      <li class="forum-list-item">
+        <h2 class="forum-list-item__title">
+          <span class="forum-list-item__icon">
+              {% case forum.type_name %} 
+                {% when "아이디어" %}
+                  <i class="fa fa-lightbulb-o"></i>
+                {% when "질문" %}
+                  <i class="fa fa-question"></i>
+                {% when "문제점" %}
+                  <i class="fa fa-exclamation"></i>                     
+                {% else %}    
+                  <i class="fa fa-volume-up"></i>
+              {% endcase %}
+          </span>
+          <a class="forum-list-item__link" href="{{ forum.url }}">{{ forum.name }} {% if forum.topics_count > 0 %} <span class="forum-list-item__link-count">({{ forum.topics_count }})</span> {% endif %}</a>
+        </h2>
+
+        <div class="row clearfix">
+          {% if forum.topics_count > 0 %}
+              {% for topic in forum.topics | limit:6 %}                
+                <div class="column column--sm-6">
+  <div class="forum-topics__item">
+    <span class="forum-topics__icon">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 296.999 296.999" xml:space="preserve">
+          <g>
+            <g>
+                <g>
+                  <path d="M45.432,35.049c-0.008,0-0.017,0-0.025,0c-2.809,0-5.451,1.095-7.446,3.085c-2.017,2.012-3.128,4.691-3.128,7.543 v159.365c0,5.844,4.773,10.61,10.641,10.625c24.738,0.059,66.184,5.215,94.776,35.136V84.023c0-1.981-0.506-3.842-1.461-5.382 C115.322,40.849,70.226,35.107,45.432,35.049z"></path>
+                  <path d="M262.167,205.042V45.676c0-2.852-1.111-5.531-3.128-7.543c-1.995-1.99-4.639-3.085-7.445-3.085c-0.009,0-0.018,0-0.026,0 c-24.793,0.059-69.889,5.801-93.357,43.593c-0.955,1.54-1.46,3.401-1.46,5.382v166.779 c28.592-29.921,70.038-35.077,94.776-35.136C257.394,215.651,262.167,210.885,262.167,205.042z"></path>
+                  <path d="M286.373,71.801h-7.706v133.241c0,14.921-12.157,27.088-27.101,27.125c-20.983,0.05-55.581,4.153-80.084,27.344 c42.378-10.376,87.052-3.631,112.512,2.171c3.179,0.724,6.464-0.024,9.011-2.054c2.538-2.025,3.994-5.052,3.994-8.301V82.427 C297,76.568,292.232,71.801,286.373,71.801z"></path>
+                  <path d="M18.332,205.042V71.801h-7.706C4.768,71.801,0,76.568,0,82.427v168.897c0,3.25,1.456,6.276,3.994,8.301 c2.545,2.029,5.827,2.78,9.011,2.054c25.46-5.803,70.135-12.547,112.511-2.171c-24.502-23.19-59.1-27.292-80.083-27.342 C30.49,232.13,18.332,219.963,18.332,205.042z"></path>
+                </g>
+            </g>
+          </g>
+      </svg>
+    </span>
+    <a class="forum-topics__link" title="{{topic.title | h}}" href="{{topic.url}}">
+      {{topic.title | h}}
+    </a>
+    <div class="forum-topics__description">
+      <span class="meta">{{topic.first_post.body | truncate:80}}</span>
+    </div>
+  </div>
+</div>
+              {% endfor %}
+            {% if forum.topics_count > 6 %}
+              <div class="column column--sm-12">
+                <a href="{{ forum.url }}" class="btn btn-default">
+                  View all ({{forum.topics_count}})
+                </a>
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="column column--sm-6">
+              <p>{% translate portal.no_topics_in_this_view %}</p>
+            </div>
+          {% endif %}
+        </div>
+      </li>
+          {% endif %}
+    {% endfor %}
+    </ul>
+{% endif %}
+
+              </div>
+		        </li>
+		      {% endfor %}
+		    </ul>
+		  {% else %}
+		    {% for category in portal.forum_categories %}
+		      {% if category.forums_count > 0 %}
+  <ul class="list-unstyled forum-list">
+    {% for forum in category.forums %}
+      <li class="forum-list-item">
+        <h2 class="forum-list-item__title">
+          <span class="forum-list-item__icon">
+              {% case forum.type_name %} 
+                {% when "아이디어" %}
+                  <i class="fa fa-lightbulb-o"></i>
+                {% when "질문" %}
+                  <i class="fa fa-question"></i>
+                {% when "문제점" %}
+                  <i class="fa fa-exclamation"></i>                     
+                {% else %}    
+                  <i class="fa fa-volume-up"></i>
+              {% endcase %}
+          </span>
+          <a class="forum-list-item__link" href="{{ forum.url }}">{{ forum.name }} {% if forum.topics_count > 0 %} <span class="forum-list-item__link-count">({{ forum.topics_count }})</span> {% endif %}</a>
+        </h2>
+
+        <div class="row clearfix">
+          {% if forum.topics_count > 0 %}
+              {% for topic in forum.topics | limit:6 %}                
+                <div class="column column--sm-6">
+  <div class="forum-topics__item">
+    <span class="forum-topics__icon">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 296.999 296.999" xml:space="preserve">
+          <g>
+            <g>
+                <g>
+                  <path d="M45.432,35.049c-0.008,0-0.017,0-0.025,0c-2.809,0-5.451,1.095-7.446,3.085c-2.017,2.012-3.128,4.691-3.128,7.543 v159.365c0,5.844,4.773,10.61,10.641,10.625c24.738,0.059,66.184,5.215,94.776,35.136V84.023c0-1.981-0.506-3.842-1.461-5.382 C115.322,40.849,70.226,35.107,45.432,35.049z"></path>
+                  <path d="M262.167,205.042V45.676c0-2.852-1.111-5.531-3.128-7.543c-1.995-1.99-4.639-3.085-7.445-3.085c-0.009,0-0.018,0-0.026,0 c-24.793,0.059-69.889,5.801-93.357,43.593c-0.955,1.54-1.46,3.401-1.46,5.382v166.779 c28.592-29.921,70.038-35.077,94.776-35.136C257.394,215.651,262.167,210.885,262.167,205.042z"></path>
+                  <path d="M286.373,71.801h-7.706v133.241c0,14.921-12.157,27.088-27.101,27.125c-20.983,0.05-55.581,4.153-80.084,27.344 c42.378-10.376,87.052-3.631,112.512,2.171c3.179,0.724,6.464-0.024,9.011-2.054c2.538-2.025,3.994-5.052,3.994-8.301V82.427 C297,76.568,292.232,71.801,286.373,71.801z"></path>
+                  <path d="M18.332,205.042V71.801h-7.706C4.768,71.801,0,76.568,0,82.427v168.897c0,3.25,1.456,6.276,3.994,8.301 c2.545,2.029,5.827,2.78,9.011,2.054c25.46-5.803,70.135-12.547,112.511-2.171c-24.502-23.19-59.1-27.292-80.083-27.342 C30.49,232.13,18.332,219.963,18.332,205.042z"></path>
+                </g>
+            </g>
+          </g>
+      </svg>
+    </span>
+    <a class="forum-topics__link" title="{{topic.title | h}}" href="{{topic.url}}">
+      {{topic.title | h}}
+    </a>
+    <div class="forum-topics__description">
+      <span class="meta">{{topic.first_post.body | truncate:160}}</span>
+    </div>
+  </div>
+</div>
+              {% endfor %}
+            {% if forum.topics_count > 6 %}
+              <div class="column column--sm-12">
+                <a href="{{ forum.url }}" class="btn btn-default">
+                  View all ({{forum.topics_count}})
+                </a>
+              </div>
+            {% endif %}
+          {% else %}
+            <div class="column column--sm-6">
+              <p>{% translate portal.no_topics_in_this_view %}</p>
+            </div>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+		    {% endfor %}
+		  {% endif %}
+		</div>
+	</div>
+</div>
