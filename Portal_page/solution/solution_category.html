@@ -1,29 +1,130 @@
-<section class="main content rounded-6 min-height-on-desktop fc-solution-category" id="solutions-category-{{ category.id }}">
-	<div class="breadcrumb">
-		<a href="{{ portal.solutions_home_url }}">{% translate portal.solutions_home %}</a>
-	</div>
-	<h2 class="heading">{{ category.name | h}}</h2>
-	<div class="cs-g-c">
-		{% for folder in category.folders %}
-			{% if folder.articles_count > 0 %}
-				<section class="cs-g article-list">
-					<div class="list-lead">
-						{{ folder | link_to_folder_with_count }}
-					</div>
-					<ul>
-						{% for article in folder.articles limit:5 %}
-						<li>
-							<div class="ellipsis">
-								<a href="{{article.url}}" title="{{article.title | h}}">{{article.title |h}}</a>
-							</div>
-						</li>
-						{% endfor %}
-					</ul>
-					{% if folder.articles.size > 5 %}
-						{{ folder | link_to_see_all_articles }}
-					{% endif %}
-				</section>
-			{% endif %}
-		{% endfor %}
-	</div>
-</section>
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="container-inner">
+    <div class="category-page">
+      <div class="row clearfix">
+        <div class="column column--sm-12">
+          <ol class="breadcrumbs">
+            <li>
+              <a href="/support/home">{{ portal.name }}</a>
+            </li>
+            <li title="{% translate portal.solutions_home %}">
+              <a href="{{ portal.solutions_home_url }}">{% translate portal.solutions_home %}</a>
+            </li>
+            <li title="{{ category.name | h }}">
+              {{ category.name | h }}
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="row clearfix">
+          <div class="column column--sm-4 column-sidebar-left">
+            <div class="article-sidebar">
+  
+              <div class="sidebar-nav">
+                <div class="sidenav sidenav--accordion">
+                  <ul class="sidenav-categories">
+                    {% for category in portal.solution_categories %}
+                      {% if category.folders_count > 1 %}
+
+                        <li class="sidenav-category {% if category.id == article.category.id %}is-active{% endif %}" id="sidenav-category-{{category.id}}">
+                          <a class="sidenav-category__link js-sidenav-category-link">{{category.name}}</a>
+                          <ul class="sidenav-sections">
+                            {% for folder in category.folders %}
+                              {% if folder.articles_count > 0 %}
+                                <li class="sidenav-section {% if folder.id == article.folder.id %}is-active{% endif %}" id="sidenav-section-{{folder.id}}">
+                                  <a class="sidenav-section__link js-sidenav-section-link">{{folder.name}}</a>
+                                  <ul class="sidenav-articles">
+                                    {% for article_item in folder.articles %}
+                                      <li class="sidenav-article {% if article_item.id == article.id %}is-active{% endif %}" id="sidenav-article-{{article_item.id}}">
+                                        <a class="sidenav-article__link js-sidenav-article-link" href="{{ article_item.url }}" title="{{article_item.title}}">{{article_item.title}}</a>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                </li>
+                              {% endif %}
+                            {% endfor %}
+                          </ul>
+                        </li>
+
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+  
+              <a class="btn btn-default sidebar-toggle js-sidebar-toggle" href="#"><i class="fa fa-bars" aria-hidden="true"></i> Open navigation</a>
+            </div>
+          </div>
+          <div class="column column--sm-8 column-sidebar-right">
+
+            <h1 class="h2 main-category-title main-category-title--articles">{% for folder in category.folders limit:1 %}{{ folder.name }}{% endfor %}</h1>
+              
+            <div class="c-list">
+              {% for folder in category.folders limit:1 %}
+                {% paginate folder.articles by 10 %}
+                {% for article in folder.articles %}
+                  <div class="c-row article-item">
+                      <span class="article-item-icon"></span>
+                      <div class="article-item-info">
+                        <a class="article-item-link" href="{{ article.url }}">{{ article.title | h }}</a>
+                        <p class="article-item-date">{{ article.modified_on | short_day_with_time }}</p>
+                      </div>
+                      <div class="article-item-description">{{ article.body_plain | h |truncate:180 }}</div>
+                  </div>
+                {% endfor %}
+                {{ paginate | default_pagination }}
+                {% endpaginate %}
+              {% endfor %}
+            </div>
+
+            <!--<div class="row folder-tree clearfix">
+                {% for folder in category.folders %}
+                  <section class="column column--sm-6 column--md-4 folder">
+                    <h3 class="folder__title">
+                      <a class="folder__title-link" href="{{ folder.url}} ">{{ folder.name }}</a>
+                    </h3>
+        
+                    {% if folder.articles_count > 0 %}
+                      <ul class="articles">
+                        {% for article in folder.articles limit:5 %}
+                          <li class="articles__item">
+                            <a class="articles__link" href="{{ article.url }}">{{ article.title | h }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                      {% if folder.articles.size > 5 %}
+                        <a href="{{ folder.url }}" class="btn btn-primary see-all-articles">
+                          View all ({{folder.articles_count}})
+                        </a>
+                      {% endif %}
+                    {% endif %}
+                  </section>
+                {% endfor %}
+              </div>-->
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+jQuery(function() {
+    jQuery('.sidenav-section__link').each(function(){
+      if(jQuery(this).text() == jQuery('.main-category-title').text()){
+        jQuery(this).parents('.sidenav-sections').siblings('.sidenav-category__link').trigger('click');
+        jQuery(this).trigger('click');
+      }
+    })
+  });
+
+</script>
