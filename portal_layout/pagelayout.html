@@ -1,67 +1,191 @@
-{{ header }}
-<div class="page">
-	
-	
-	<!-- Search and page links for the page -->
-	{% if portal.current_tab and portal.current_tab == "home" %}
-		<section class="hero-unit text-center">	
-			<div class="container">
-				<div class="hc_search">
-					<h2 class="help-center-name">Innovative Digital Services with<br>Digital DNA and Value Sharing</h2>
-					{% snippet search_form %}
- 				</div>  
-			</div>
-          <div class="hc-nav hide-in-mobile {% if portal.contact_info %} nav-with-contact {% endif %}" style="color: black;">
-				{{ portal | helpcenter_navigation }}
-            	<div id='gg_main' style='display: none;'>
-                  <a href="/support/tickets/new" class="mobile-icon-nav-newticket new-ticket ellipsis" onclick="make_session('gg')" title="경기도 클라우드 지원사업 사전상담 접수">
-                     <span> 경기도 클라우드 지원사업 사전상담 접수 </span>
-                   </a>
-                 </div>
-			</div>
-            <div class="hero-unit-icon">
-              <ul class="hero-unit-block">
-                <li><a></a></li>
-              </ul>
-            </div> 
-		</section>
-	{% endif %}
+{% assign freshservice_enabled = false %}
 
-	<!-- Notification Messages -->
-	{{ page_message }}
+<!-- Notification Messages -->
+{{ page_message }}
+<div class="layout {% if portal.user.id %}layout--logged-in{% else %}layout--anonymous{% endif %}">
+  <div class="layout__head">
+  	{{ header }}
+  </div>
+  <div class="layout__content">
+    {% unless freshservice_enabled %}
+      {% if portal.current_page == 'profile_edit' %}
+        <div id="profile-edit">
+          <div class="container">
+              <div class="container-inner">
+      {% endif %}
+    {% else %}
+      {% if portal.current_page == 'profile_edit' %}
+        <div class="container">
+          <div class="container-inner">
+      {% endif %}
+    {% endunless %}
+    
+    {{ content_for_layout }}
 
-	{% if portal.current_page != "user_signup" and portal.current_page != "submit_ticket" %}
-	<div class="">		
-		{{ content_for_layout }}
-	</div>
-	{% elsif portal.current_page == "submit_ticket" %}
-	<div class="">		
-		<div class="new_ticket_page">
-		{{ content_for_layout }}
-		</div>
-	</div>
-	{% else %}
-	<div class="signup-page">
-	<div class="signup-wrapper">
-	{{ content_for_layout }}
-	</div>
-	</div>
-	{% endif %}
-</div>
-{{ footer }}
-
-
-<style type="text/css">
-  .hc-search-button button.btn-primary { border-left: 1px solid #e6e8ee !important; background:#eeedf4 !important; }
-  .hide-in-mobile { color: #fff !important; margin-right:25px; }
-  .hide-in-mobile a { color: #EC795A !important; }
-  .hide-in-mobile a:hover { text-decoration: underline; }
-  .mobile-icon-nav-status.check-status::before { padding-top: 1px !important; }
-  .hc-nav a span { padding-bottom:2px; }
-  .home-category-blocks ul.category-list li, ul.quick-article-block>li { margin: 10px 15px; }
-  .home-category-blocks ul.category-list li p.info-text { margin: 0; letter-spacing: -0.3px; }
-  .home-category-blocks ul.category-list li:last-child { background: #4d468c; }
+    {% unless freshservice_enabled %}
+      {% if portal.current_page == 'profile_edit' %}</div></div></div>{% endif %}
+    {% else %}
+      {% if portal.current_page == 'profile_edit' %}
+          </div>
+        </div>
+      {% endif %}
+    {% endunless %}
+  </div>
   
-  .quick-articles section a { color: #0052CC !important; }
-  .quick-articles section a:hover { color: #183247 !important; } 
-</style>
+  <div class="layout__footer">
+		{{ footer }}
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/jquery.magnific-popup/1.0.0/jquery.magnific-popup.min.js"></script>
+<script src="//cdn.jsdelivr.net/highlight.js/9.10.0/highlight.min.js"></script>
+
+<script>
+	(function($) {
+		hljs.initHighlightingOnLoad();
+
+		var BT_SETTINGS = {
+		  css: {
+		    activeClass: "is-active",
+		    hiddenClass: "is-hidden",
+		    visibleClass: "is-visible"
+		  }
+		};
+
+		var Utils = {
+		  isHomepage: function() {
+		    return $("[data-home-page]").length > 0;
+		  }
+		};
+
+	  var $topbar = $("[data-topbar]");
+	  var $heroUnit = $("[data-hero-unit]");
+	  var $topSearchBar = $(".topbar__search .hc-search-form");
+	  var $topSearchBarQuery = $topSearchBar.find("input.special");
+	  var $topSearchBarBtn = $(".topbar__btn-search");
+
+	  $topbar.removeClass(BT_SETTINGS.css.hiddenClass);
+
+	  $("[data-toggle-menu]").click(function() {
+	    $(this).toggleClass(BT_SETTINGS.css.activeClass);
+	    $("[data-menu]").toggle();
+	  });
+
+	  $(".image-with-lightbox").magnificPopup({
+	    type: "image",
+	    closeOnContentClick: true,
+	    closeBtnInside: false,
+	    fixedContentPos: true,
+	    mainClass: "mfp-with-zoom", // class to remove default margin from left and right side
+	    image: {
+	      verticalFit: true
+	    },
+	    zoom: {
+	      enabled: true,
+	      duration: 300 // don't foget to change the duration also in CSS
+	    }
+	  });
+
+	  $(".image-with-video-icon").magnificPopup({
+	    disableOn: 700,
+	    type: "iframe",
+	    mainClass: "mfp-fade",
+	    removalDelay: 160,
+	    preloader: false,
+	    fixedContentPos: false
+	  });
+
+	  $(".accordion__item-title").on("click", function() {
+	    var $title = $(this);
+	    $title.toggleClass("accordion__item-title--active");
+	    $title
+	      .parents(".accordion__item")
+	      .find(".accordion__item-content")
+	      .slideToggle();
+	  });
+
+	  $(".tabs-link").click(function(e) {
+	    e.preventDefault();
+	    var $link = $(this);
+	    var tabIndex = $link.index();
+	    var $tab = $link.parents(".tabs").find(".tab").eq(tabIndex);
+	    $link
+	      .addClass(BT_SETTINGS.css.activeClass)
+	      .siblings()
+	      .removeClass(BT_SETTINGS.css.activeClass);
+	    $tab
+	      .removeClass(BT_SETTINGS.css.hiddenClass)
+	      .siblings(".tab")
+	      .addClass(BT_SETTINGS.css.hiddenClass);
+	  });
+
+	  $topSearchBarBtn.click(function() {
+	    $(this).addClass(BT_SETTINGS.css.hiddenClass);
+	    $topSearchBar.addClass(BT_SETTINGS.css.visibleClass);
+	    $topSearchBarQuery.focus();
+	  });
+
+	  $(document).mouseup(function(e) {
+	    if (!$topSearchBarQuery.is(e.target)) {
+	      $topSearchBar.removeClass(BT_SETTINGS.css.visibleClass);
+	      $topSearchBarBtn.removeClass(BT_SETTINGS.css.hiddenClass);
+	    }
+	  });
+
+	  // Fix animated icons
+	  $(".fa-spin").empty();
+
+    $('.topbar__search input.special').attr('placeholder', 'Search');
+
+    $('<div />', {
+      class:'sidebar-overlay'
+    }).appendTo('body');
+
+    $(document).on('click', '.js-sidenav-category-link', function (e) {
+      e.preventDefault();
+      var $categoryItem = $(this).parents('.sidenav-category');
+      $categoryItem.toggleClass('is-active').siblings().removeClass('is-active');
+    });
+
+    $(document).on('click', '.js-sidenav-section-link', function (e) {
+      e.preventDefault();
+      var $categoryItem = $(this).parents('.sidenav-section');
+      $categoryItem.toggleClass('is-active').siblings().removeClass('is-active');
+    });
+
+    var $sidebarToggle = $(".js-sidebar-toggle, .sidebar-overlay");
+
+    $sidebarToggle.on("click", function() {
+      $("body").toggleClass("sidenav-open");
+      $(".sidebar-nav").toggleClass("show");
+      $(".sidebar-overlay").toggleClass("active");
+    });
+
+    //Homepage search: change placeholder
+    $(".search-box--hero-unit #support-search-input").attr("placeholder","궁금한 내용, 질문, 오류상황 등 검색어를 입력하세요.");
+    
+    //Inner pages: change placeholder
+    //$(".search-box--header #support-search-input").attr("placeholder","질문있으세요");
+
+    //Login page: hide remember me checkbox
+    $('#user_session_remember_me').parents('.control-group').hide();
+
+    //Active menu item
+    if(window.location.href.indexOf('/support/discussions/42000029798') > -1){
+      $('.btn-tips').addClass("active");
+    } else {
+      $(".btn-topbar:not(.btn-tips)").filter(function(){
+        var itemPath = $(this).attr('href');
+        return window.location.href.indexOf(itemPath) > -1
+      }).addClass("active");
+    }
+      
+    //Remove fields at Ticket details page: Company, Name, Company Name, Position
+    if($('#ticket-sidebar-details').length > 0){
+	  if($('#helpdesk_ticket_custom_field_cf_l1_866474').val() !== '경기도 클라우드 지원사업'){
+	    $('#helpdesk_ticket_custom_field_cf_rand910647_866474, #helpdesk_ticket_custom_field_cf_rand669743_866474, #helpdesk_ticket_custom_field_cf_rand557328_866474, #helpdesk_ticket_custom_field_cf_rand558545_866474').parent('.controls').parent('div').remove();
+	  }           
+    }
+
+	})(jQuery);
+</script>
