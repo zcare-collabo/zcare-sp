@@ -1,39 +1,132 @@
-<section class="main content rounded-6 min-height-on-desktop fc-article-show" id="article-show-{{ article.id }}">
-	<div class="breadcrumb">
-		<a href="{{ portal.solutions_home_url }}"> {% translate portal.solutions_home %} </a>
-		<a href="{{ article.category.url }}">{{ article.category.name | h}}</a>
-		<a href="{{ article.folder.url }}">{{ article.folder.name | h}}</a>
-	</div>
-	<b class="page-stamp page-stamp-article">
-		<b class="icon-page-article"></b>
-	</b>
+<div class="container">
+  <div class="container-inner">
+    <div class="search-box search-box--header">
+        {% snippet search_form %}
+    </div>
+  </div>
+</div>
 
-	<h2 class="heading">{{ article.title | h}}
-		<a href="javascript:print();" class="icon-print solution-print-icon" title="{% translate portal.print_title %}"></a>
-	</h2>
-	{% if article.personalized_articles? %}
-	<div> {% translate portal.article.created_by %} {{ article.author }} </div> 
-	{% endif %}
-	<p>{% translate portal.article.modified_on %} {{ article.modified_on | short_day_with_time }}</p>
-	<hr />
-	{% comment %}
-	<div>
-		{% for tag in article.tags %}
-			<span class="label label-info">{{tag.name | h}}</span>
-		{% endfor %}
-	</div>
-	{% endcomment %}
+<div class="container">
+  <div class="container-inner">
+    <div class="article-page">
+      <div class="row clearfix">
+        <div class="column column--sm-12">
+          <ol class="breadcrumbs">
+            <li>
+              <a href="/support/home">{{ portal.name }}</a>
+            </li>
+            <li title="{% translate portal.solutions_home %}">
+              <a href="{{ portal.solutions_home_url }}">{% translate portal.solutions_home %}</a>
+            </li>
+            <li title="{{ article.category.name | h}}">
+              <a href="{{ article.category.url }}">{{ article.category.name | h}}</a>
+            </li>
+            <li title="{{ article.folder.name | h}}">
+              <a href="{{ article.folder.url }}">{{ article.folder.name | h}}</a>
+            </li>
+          </ol>
+        </div>
+      </div>
 
-	<article class="article-body" id="article-body" rel="image-enlarge">
-		{{ article.body }}
-	</article>
+      <div class="row clearfix">
+        <div class="column column--sm-4 column-sidebar-left">
+          <div class="article-sidebar">
 
-	<hr />	
-		{{article | article_attachments}}
+            <div class="sidebar-nav">
+              <div class="sidenav sidenav--accordion">
+                <ul class="sidenav-categories">
+                  {% for category in portal.solution_categories %}
+                    {% if category.folders_count > 1 %}
+                      <li class="sidenav-category {% if category.id == article.category.id %}is-active{% endif %}" id="sidenav-category-{{category.id}}">
+                        <a class="sidenav-category__link js-sidenav-category-link">{{category.name}}</a>
+                        <ul class="sidenav-sections">
+                          {% for folder in category.folders %}
+                            {% if folder.articles_count > 0 %}
+                              <li class="sidenav-section {% if folder.id == article.folder.id %}is-active{% endif %}" id="sidenav-section-{{folder.id}}">
+                                <a class="sidenav-section__link js-sidenav-section-link">{{folder.name}}</a>
+                                <ul class="sidenav-articles">
+                                  {% for article_item in folder.articles %}
+                                    <li class="sidenav-article {% if article_item.id == article.id %}is-active{% endif %}" id="sidenav-article-{{article_item.id}}">
+                                      <a class="sidenav-article__link js-sidenav-article-link" href="{{ article_item.url }}" title="{{article_item.title}}">{{article_item.title}}</a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              </li>
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
 
-		{{article | article_voting }}
-		
-</section>
-<section class="sidebar content rounded-6 fc-related-articles">
-	{{ article | related_articles: 10, 'related_articles' }}
-</section>
+            <a class="btn btn-default sidebar-toggle js-sidebar-toggle" href="#"><i class="fa fa-bars" aria-hidden="true"></i> Open navigation</a>
+          </div>
+        </div>
+        <div class="column column--sm-8 column-sidebar-right">
+          <article class="article clearfix" itemscope itemtype="http://schema.org/Article">
+            <header class="article-header">
+
+              <div class="article-title-wrapper">
+                <h1 class="article__title" itemprop="name">
+                  {{ article.title | h}}
+                </h1>
+                <span class="article-print">                
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" width="18" height="18" xml:space="preserve"><g><path fill="#6f7c87" d="M493,352.9V174c0-23.8-19.4-43.2-43.2-43.2H403V39.7c0-15.8-12.9-28.7-28.7-28.7H137.5c-15.8,0-28.7,12.9-28.7,28.7v91.2
+                  H62.2C38.4,130.8,19,150.2,19,174v178.9c0,23.8,19.4,43.2,43.2,43.2h46.7v76.2c0,15.8,12.9,28.7,28.7,28.7h236.8
+                  c15.8,0,28.7-12.9,28.7-28.7v-76.2h46.7C473.6,396.1,493,376.8,493,352.9z M133.4,39.7c0-2.3,1.9-4.2,4.2-4.2h236.8
+                  c2.3,0,4.2,1.9,4.2,4.2v91.2H133.4V39.7z M378.6,472.3c0,2.3-1.9,4.2-4.2,4.2H137.6c-2.3,0-4.2-1.9-4.2-4.2V275.7h245.1V472.3z
+                   M390.8,251.2H121.2c-6.8,0-12.3,5.5-12.3,12.3v108.1H62.2c-10.3,0-18.7-8.4-18.7-18.7V174c0-10.3,8.4-18.7,18.7-18.7h387.5
+                  c10.3,0,18.7,8.4,18.7,18.7v178.9c0,10.3-8.4,18.7-18.7,18.7h-46.7V263.5C403.1,256.7,397.6,251.2,390.8,251.2z"/><path d="M82.5,194.4c-2.3,2.3-3.6,5.4-3.6,8.7c0,3.2,1.3,6.4,3.6,8.7c2.3,2.3,5.4,3.6,8.7,3.6c3.2,0,6.4-1.3,8.7-3.6
+                  c2.3-2.3,3.6-5.5,3.6-8.7c0-3.2-1.3-6.4-3.6-8.7C95.2,189.8,87,189.8,82.5,194.4z" fill="#6f7c87"/></g></svg>
+                  <a class="article-print-link" href="javascript:print();">Print</a>
+                </span>
+              </div>
+
+              <div class="article-meta">
+                <div class="article-meta__col article-meta__col--main">
+                  <div class="entry-info">
+                    <div class="entry-info__content">
+                      {{ article.author }}
+                      <span class="meta">{% translate portal.article.modified_on %} {{ article.modified_on | short_day_with_time }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            <div class="article__body markdown" itemprop="articleBody">
+              {{ article.body }}
+            </div>
+
+            {% if article.attachments.size > 0  %}
+              <div class="article__attachments">
+                <ul class="list-unstyled attachment-list">
+                {% for attachment in article.attachments %}
+                  <li class="attachment-list__item">
+                    <span class="fa fa-paperclip attachment-list__icon"></span>
+                    <a href="{{ attachment.url }}" target="_blank">{{ attachment.filename }}</a>
+                    <div class="meta">({{ attachment.size }})</div>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          </article>
+
+          <footer class="article-footer clearfix">
+            {{article | article_voting }}
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type='text/javascript'>
+  jQuery(function() {    
+    jQuery("<br class='md-hidden' />").insertBefore(".vote-up");  
+  });  
+</script>
