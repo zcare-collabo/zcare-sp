@@ -6291,3 +6291,304 @@ input[type="radio"]:before{
 
 /* 2020.01.16 추가 */
 code { font-family : Tahoma, sans-serif; } 
+
+/* 
+	티켓 작성 CSS 시작
+	2020.05.07
+*/
+div {
+  display: block;
+  word-break: keep-all;
+}
+
+.ticket_checkLine {
+  background: #f9f9f9;
+  padding: 0px 23px;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.em_red {
+  color: #ea0530 !important;
+}
+
+#ticket_top_h4 {
+  font-size: 20px;
+  line-height: 78px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-weight: 400;
+}
+
+.ticket_terms_box * {
+  word-break: break-all;
+}
+
+.ticket_terms_box h2:nth-of-type(1) {
+  margin-top: 0px;
+  padding-top: 0px;
+  border-top: none;
+}
+
+.ticket_terms_box h2 {
+  margin-top: 40px;
+  padding-top: 30px;
+  font-size: 22px;
+  color: #444;
+  display: block;
+  font-weight: 500;
+  border-top: 1px solid #eee;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
+  color: #555;
+  width: 100%;
+  border: 0px;
+  display: table;
+  box-sizing: border-box;
+}
+
+.ticket_terms_box table {
+  width: 100%;
+  margin: 10px 0 30px;
+  border-top: 1px solid #444;
+}
+
+colgroup {
+  display: table-column-group;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.ticket_terms_box table tr:last-child th,
+.ticket_terms_box table tr:last-child td {
+  border-bottom: 1px solid #ccc;
+}
+
+.ticket_terms_box table tr td:first-child,
+.ticket_terms_box table tr th:first-child {
+  border-left: 0 none;
+}
+
+.ticket_terms_box table th {
+  text-align: center;
+  background: #eee;
+  font-weight: 400;
+  border-bottom: 1px solid #fff;
+  color: #444;
+}
+
+.ticket_terms_box table th,
+.ticket_terms_box table td {
+  padding: 10px 15px;
+  font-size: 16px;
+  vertical-align: top;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+/* 
+	티켓 작성 CSS 끝
+	2020.05.07
+*/
+
+/* 
+	회원가입 CSS 시작
+	2020.05.07
+*/
+.signup_bottomTerm {
+  margin-bottom: -23px;
+}
+
+.signup_terms_box {
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+  height: 300px;
+  padding: 30px;
+}
+
+.signup_bottomAgreementBox {
+  margin-bottom: 0px;
+}
+
+.signup_agreementBox {
+  display: block;
+  border-top: 1px solid #aaa;
+  margin-left: -15px;
+  padding-bottom: 11px;
+  margin-top: 20px;
+}
+
+.signup_agreementBox h4 {
+  font-size: 20px;
+  line-height: 78px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  font-weight: bold;
+}
+
+.signup_agreementBox .terms_box {
+  border: 1px solid #ccc;
+  overflow-y: scroll;
+  height: 300px;
+  padding: 30px;
+  visibility: visible;
+}
+
+.signup_terms_box h2:nth-of-type(1) {
+  margin-top: 0px;
+  padding-top: 0px;
+  border-top: none;
+}
+
+.signup_terms_box h2 {
+  margin-top: 40px;
+  padding-top: 30px;
+  font-size: 22px;
+  color: #444;
+  display: block;
+  font-weight: 500;
+  border-top: 1px solid #eee;
+}
+
+.signup_terms_box * {
+  word-break: break-all;
+}
+
+.signup_terms_box h2+h3 {
+  margin-top: 10px;
+}
+
+.signup_terms_box h3 {
+  margin-top: 30px;
+  font-size: 20px;
+  color: #444;
+  display: block;
+  font-weight: 400;
+  text-align: left;
+  height: auto;
+  line-height: 1.2em;
+}
+
+.signup_terms_box ol,
+.signup_terms_box ul {
+  margin: 10px 0 30px;
+}
+
+ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.signup_terms_box ol li,
+.signup_terms_box ul li {
+  padding-left: 5px;
+  margin: 5px 0;
+}
+
+.signup_terms_box p {
+  margin: 10px 0;
+}
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
+  color: #555;
+  width: 100%;
+  border: 0px;
+  display: table;
+  box-sizing: border-box;
+}
+
+.signup_terms_box table {
+  width: 100%;
+  margin: 10px 0 30px;
+  border-top: 1px solid #444;
+}
+
+colgroup {
+  display: table-column-group;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+tr {
+  display: table-row;
+  vertical-align: inherit;
+  border-color: inherit;
+}
+
+.signup_terms_box table tr:last-child th,
+.signup_terms_box table tr:last-child td {
+  border-bottom: 1px solid #ccc;
+}
+
+.signup_terms_box table tr td:first-child,
+.signup_terms_box table tr th:first-child {
+  border-left: 0 none;
+}
+
+.signup_terms_box table th {
+  text-align: center;
+  background: #eee;
+  font-weight: 400;
+  border-bottom: 1px solid #fff;
+  color: #444;
+}
+
+.signup_terms_box table th,
+.signup_terms_box table td {
+  padding: 10px 15px;
+  font-size: 16px;
+  vertical-align: top;
+}
+
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.profile-edit-form .controls{
+	margin-left: 0;
+}
+
+/* 
+	회원가입 CSS 끝
+	2020.05.07
+*/
